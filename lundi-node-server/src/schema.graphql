@@ -1,0 +1,56 @@
+# import Todo, TodoSubscriptionPayload, TodoOrderByInput, Project, ProjectSubscriptionPayload, ProjectOrderByInput from "./generated/prisma.graphql"
+
+type Query {
+  info: String!
+  project(id: String!): Project!
+  todo(id: String!): Todo!
+  projects(
+    filter: String
+    skip: Int
+    first: Int
+    orderBy: ProjectOrderByInput
+  ): [Project!]!
+  todos(
+    filter: String
+    skip: Int
+    first: Int
+    orderBy: TodoOrderByInput
+  ): [Todo!]!
+}
+
+type Mutation {
+  createProject(name: String!, description: String): Project!
+  updateProject(name: String, description: String, id: String!): Project!
+  deleteProject(id: String!): Project
+  createTodo(
+    name: String!
+    status: String
+    priority: String
+    deadline: DateTime
+    projectId: String!
+  ): Todo!
+  updateTodo(
+    name: String
+    status: String
+    priority: String
+    deadline: DateTime
+    id: String!
+  ): Todo!
+  deleteTodo(id: String!): Todo
+  signup(email: String!, password: String!, name: String!): AuthPayload
+  login(email: String!, password: String!): AuthPayload
+}
+
+type AuthPayload {
+  token: String
+  user: User
+}
+
+# instead of importing User from prisma, I can hide the password field
+type User {
+  id: ID!
+  name: String!
+  email: String!
+  projects: [Project!]!
+  todos: [Todo!]!
+}

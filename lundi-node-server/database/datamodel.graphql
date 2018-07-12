@@ -1,0 +1,28 @@
+type Todo {
+  id: ID! @unique
+  name: String!
+  status: String
+  priority: String
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  deadline: DateTime
+  owner: User
+  project: Project
+}
+
+type Project {
+  id: ID! @unique
+  name: String!
+  description: String
+  owner: User
+  todos: [Todo!]!
+}
+
+type User {
+  id: ID! @unique
+  name: String!
+  email: String! @unique
+  password: String!
+  projects: [Project!]!
+  todos: [Todo!]!
+}

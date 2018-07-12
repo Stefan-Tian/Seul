@@ -1,0 +1,5 @@
+service: lundi
+stage: dev
+datamodel: datamodel.graphql
+secret: mysecret123
+cluster: public-freemind-672/prisma-eu1

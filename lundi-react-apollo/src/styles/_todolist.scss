@@ -1,0 +1,21 @@
+.todolist-container {
+  display: grid;
+  margin: 5rem 4rem 5rem 7rem;
+
+  font-size: 1.6rem;
+  color: var(--color-metal);
+  grid-row-gap: 0.1rem;
+}
+
+.todolist-title {
+  display: grid;
+  font-weight: 600;
+  min-height: 3rem;
+  padding: 1rem;
+
+  grid-template-columns: 3fr repeat(3, 1fr);
+
+  & div:not(:first-child) {
+    justify-self: center;
+  }
+}

@@ -1,0 +1,175 @@
+:root {
+  --color-white: #ffffff;
+  --color-black: #171c26;
+  --color-green: #11d96f;
+  --color-grey: #6b727d;
+  --color-grey-light: #f8f7f7;
+  --color-metal: #2e333c;
+  --color-red: #ff1654;
+  --color-blue: #247ba0;
+  --color-sheen: #70c1b3;
+  --color-foam: #b2dbbf;
+  --color-yellow: #f3ffbd;
+  --color-pink: #fca5bd; }
+
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: inherit; }
+
+html {
+  box-sizing: border-box;
+  font-size: 62.5%; }
+
+.yellow {
+  background-color: var(--color-yellow);
+  color: var(--color-black); }
+
+.red {
+  background-color: var(--color-red);
+  color: var(--color-white); }
+
+.blue {
+  background-color: var(--color-blue);
+  color: var(--color-white); }
+
+.foam {
+  background-color: var(--color-foam);
+  color: var(--color-black); }
+
+.grey {
+  background-color: var(--color-grey);
+  color: var(--color-white); }
+
+.sheen {
+  background-color: var(--color-sheen);
+  color: var(--color-white); }
+
+.todolist-container {
+  display: grid;
+  margin: 5rem 4rem 5rem 7rem;
+  font-size: 1.6rem;
+  color: var(--color-metal);
+  grid-row-gap: 0.1rem; }
+
+.todolist-title {
+  display: grid;
+  font-weight: 600;
+  min-height: 3rem;
+  padding: 1rem;
+  grid-template-columns: 3fr repeat(3, 1fr); }
+  .todolist-title div:not(:first-child) {
+    justify-self: center; }
+
+.todo-container {
+  display: grid;
+  grid-template-columns: 0.7rem 3fr repeat(3, 1fr);
+  grid-template-rows: 4.3rem;
+  grid-column-gap: 0.1rem; }
+  .todo-container::before {
+    content: "";
+    width: 0.7rem;
+    height: 4.3rem;
+    background-color: var(--color-sheen); }
+  .todo-container > section:not(:first-of-type) {
+    font-weight: 100;
+    height: 100%;
+    text-align: center;
+    padding-top: 1.45rem; }
+  .todo-container > section {
+    align-self: center;
+    padding: 1.3rem; }
+  .todo-container > section:not(:first-of-type) > div {
+    display: flex;
+    justify-content: center;
+    font-size: 1.35rem;
+    font-weight: 400; }
+    .todo-container > section:not(:first-of-type) > div > span {
+      margin-right: 0.7rem; }
+  .todo-container > section > div > .icon-pencil {
+    width: 0; }
+  .todo-container > section:hover > div > .icon-pencil {
+    width: 1.2rem;
+    transform: translateY(-0.08rem); }
+
+.todo__name {
+  background-color: var(--color-grey-light); }
+  .todo__name > div > span {
+    margin-right: 0.9rem; }
+
+.todo__status {
+  display: flex;
+  justify-content: center; }
+
+.todo__priority {
+  display: flex;
+  justify-content: center; }
+
+.todo__timeline {
+  background-color: var(--color-sheen); }
+
+.create-container {
+  display: flex;
+  align-items: center; }
+
+.create-todo {
+  display: flex;
+  align-items: center;
+  width: 30%;
+  height: 4rem;
+  background: linear-gradient(to bottom right, rgba(10, 10, 10, 0.06), rgba(10, 10, 10, 0)); }
+  .create-todo__input {
+    border: 0;
+    width: 100%;
+    background-color: rgba(10, 10, 10, 0);
+    padding: 0.1rem 1rem 0.1rem 1.3rem;
+    font-size: 1.3rem;
+    font-style: italic; }
+  .create-todo__btn {
+    margin-left: 1.2rem;
+    fill: var(--color-grey-light); }
+    .create-todo__btn:hover {
+      fill: var(--color-metal); }
+
+.todo-select {
+  display: block;
+  -webkit-appearance: button;
+  -moz-appearance: button;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  transform: translateY(-0.2rem);
+  border: 1px dotted #000;
+  width: minmax(6rem, 10rem);
+  height: 2rem;
+  text-align: center;
+  font-size: 1.3rem; }
+  .todo-select::after {
+    content: "\f0d7";
+    color: var(--color-metal); }
+
+.icon {
+  width: 1.2rem;
+  height: 1.2rem;
+  fill: var(--color-metal); }
+  .icon:hover {
+    fill: var(--color-pink);
+    cursor: pointer; }
+  .icon-checkmark {
+    margin-left: 0.4rem;
+    width: 1.3rem;
+    height: 1.4rem; }
+    .icon-checkmark:hover {
+      margin-left: 0.4rem;
+      width: 1.5rem;
+      height: 1.5rem;
+      fill: var(--color-pink);
+      cursor: pointer; }
+  .icon-add {
+    width: 2.6rem;
+    height: 2.6rem;
+    fill: var(--color-grey); }
+    .icon-add:hover {
+      fill: var(--color-metal);
+      cursor: pointer; }
