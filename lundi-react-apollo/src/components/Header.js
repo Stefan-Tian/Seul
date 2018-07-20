@@ -7,10 +7,14 @@ class Header extends Component {
   render() {
     const authToken = localStorage.getItem(AUTH_TOKEN);
     return (
-      <header>
-        <Link to="/">Donezo</Link>
+      <header className="header">
+        <Link className="header__name" to="/">
+          <img className="header__logo" src="/lundi-logo.png" alt="logo" />
+          lundi
+        </Link>
         {authToken ? (
           <div
+            className="header__log"
             onClick={() => {
               localStorage.removeItem(AUTH_TOKEN);
               this.props.history.push("/");
@@ -19,7 +23,9 @@ class Header extends Component {
             logout
           </div>
         ) : (
-          <Link to="/login">login</Link>
+          <Link className="header__log" to="/login">
+            login
+          </Link>
         )}
       </header>
     );

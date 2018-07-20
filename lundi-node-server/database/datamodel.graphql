@@ -5,7 +5,8 @@ type Todo {
   priority: String
   createdAt: DateTime!
   updatedAt: DateTime!
-  deadline: DateTime
+  startDate: String
+  endDate: String
   owner: User
   project: Project
 }

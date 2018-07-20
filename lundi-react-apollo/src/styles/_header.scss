@@ -1,0 +1,35 @@
+.header {
+  grid-row: 1 / 2;
+  grid-column: 2 / -1;
+  height: 4.9rem;
+  box-shadow: 0.1rem 0.3rem 0.4rem rgba(73, 72, 72, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 3rem;
+
+  &__name {
+    font-family: "Righteous", cursive;
+    text-decoration: none;
+    color: var(--color-sheen);
+    font-size: 3.7rem;
+  }
+
+  &__log {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--color-metal);
+    cursor: pointer;
+
+    &:hover {
+      color: var(--color-pink);
+    }
+  }
+
+  &__logo {
+    height: 3.5rem;
+    width: 3.7rem;
+    margin-right: 0.5rem;
+    transform: translateY(0.2rem);
+  }
+}

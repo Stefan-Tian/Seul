@@ -26,14 +26,16 @@ type Mutation {
     name: String!
     status: String
     priority: String
-    deadline: DateTime
+    startDate: String
+    endDate: String
     projectId: String!
   ): Todo!
   updateTodo(
     name: String
     status: String
     priority: String
-    deadline: DateTime
+    startDate: String
+    endDate: String
     id: String!
   ): Todo!
   deleteTodo(id: String!): Todo

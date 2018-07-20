@@ -4,10 +4,12 @@
   --color-green: #11d96f;
   --color-grey: #6b727d;
   --color-grey-light: #f8f7f7;
+  --color-grey-light-2: #eeecec;
   --color-metal: #2e333c;
 
   --color-red: #ff1654;
   --color-blue: #247ba0;
+  --color-blue-dark: #1b68a0;
   --color-sheen: #70c1b3;
   --color-foam: #b2dbbf;
   --color-yellow: #f3ffbd;
@@ -24,10 +26,25 @@
 html {
   box-sizing: border-box;
   font-size: 62.5%;
+  height: 100%;
 
   // @media only screen and (max-width: $bp-largest) {
   //   font-size: 50%;
   // }
+}
+
+#root {
+  height: 100%;
+}
+
+body {
+  height: 100%;
+}
+
+input {
+  &:focus {
+    outline: none;
+  }
 }
 
 .yellow {
@@ -58,4 +75,8 @@ html {
 .sheen {
   background-color: var(--color-sheen);
   color: var(--color-white);
+}
+
+.layout {
+  height: 100%;
 }

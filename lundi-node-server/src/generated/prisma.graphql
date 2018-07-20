@@ -20,7 +20,8 @@ type Todo implements Node {
   priority: String
   createdAt: DateTime!
   updatedAt: DateTime!
-  deadline: DateTime
+  startDate: String
+  endDate: String
   owner(where: UserWhereInput): User
   project(where: ProjectWhereInput): Project
 }
@@ -520,7 +521,8 @@ input TodoCreateInput {
   name: String!
   status: String
   priority: String
-  deadline: DateTime
+  startDate: String
+  endDate: String
   owner: UserCreateOneWithoutTodosInput
   project: ProjectCreateOneWithoutTodosInput
 }
@@ -539,7 +541,8 @@ input TodoCreateWithoutOwnerInput {
   name: String!
   status: String
   priority: String
-  deadline: DateTime
+  startDate: String
+  endDate: String
   project: ProjectCreateOneWithoutTodosInput
 }
 
@@ -547,7 +550,8 @@ input TodoCreateWithoutProjectInput {
   name: String!
   status: String
   priority: String
-  deadline: DateTime
+  startDate: String
+  endDate: String
   owner: UserCreateOneWithoutTodosInput
 }
 
@@ -578,8 +582,10 @@ enum TodoOrderByInput {
   createdAt_DESC
   updatedAt_ASC
   updatedAt_DESC
-  deadline_ASC
-  deadline_DESC
+  startDate_ASC
+  startDate_DESC
+  endDate_ASC
+  endDate_DESC
 }
 
 type TodoPreviousValues {
@@ -589,7 +595,8 @@ type TodoPreviousValues {
   priority: String
   createdAt: DateTime!
   updatedAt: DateTime!
-  deadline: DateTime
+  startDate: String
+  endDate: String
 }
 
 type TodoSubscriptionPayload {
@@ -635,7 +642,8 @@ input TodoUpdateInput {
   name: String
   status: String
   priority: String
-  deadline: DateTime
+  startDate: String
+  endDate: String
   owner: UserUpdateOneWithoutTodosInput
   project: ProjectUpdateOneWithoutTodosInput
 }
@@ -662,7 +670,8 @@ input TodoUpdateWithoutOwnerDataInput {
   name: String
   status: String
   priority: String
-  deadline: DateTime
+  startDate: String
+  endDate: String
   project: ProjectUpdateOneWithoutTodosInput
 }
 
@@ -670,7 +679,8 @@ input TodoUpdateWithoutProjectDataInput {
   name: String
   status: String
   priority: String
-  deadline: DateTime
+  startDate: String
+  endDate: String
   owner: UserUpdateOneWithoutTodosInput
 }
 
@@ -979,35 +989,112 @@ input TodoWhereInput {
   All values greater than or equal the given value.
   """
   updatedAt_gte: DateTime
-  deadline: DateTime
+  startDate: String
   """
   All values that are not equal to given value.
   """
-  deadline_not: DateTime
+  startDate_not: String
   """
   All values that are contained in given list.
   """
-  deadline_in: [DateTime!]
+  startDate_in: [String!]
   """
   All values that are not contained in given list.
   """
-  deadline_not_in: [DateTime!]
+  startDate_not_in: [String!]
   """
   All values less than the given value.
   """
-  deadline_lt: DateTime
+  startDate_lt: String
   """
   All values less than or equal the given value.
   """
-  deadline_lte: DateTime
+  startDate_lte: String
   """
   All values greater than the given value.
   """
-  deadline_gt: DateTime
+  startDate_gt: String
   """
   All values greater than or equal the given value.
   """
-  deadline_gte: DateTime
+  startDate_gte: String
+  """
+  All values containing the given string.
+  """
+  startDate_contains: String
+  """
+  All values not containing the given string.
+  """
+  startDate_not_contains: String
+  """
+  All values starting with the given string.
+  """
+  startDate_starts_with: String
+  """
+  All values not starting with the given string.
+  """
+  startDate_not_starts_with: String
+  """
+  All values ending with the given string.
+  """
+  startDate_ends_with: String
+  """
+  All values not ending with the given string.
+  """
+  startDate_not_ends_with: String
+  endDate: String
+  """
+  All values that are not equal to given value.
+  """
+  endDate_not: String
+  """
+  All values that are contained in given list.
+  """
+  endDate_in: [String!]
+  """
+  All values that are not contained in given list.
+  """
+  endDate_not_in: [String!]
+  """
+  All values less than the given value.
+  """
+  endDate_lt: String
+  """
+  All values less than or equal the given value.
+  """
+  endDate_lte: String
+  """
+  All values greater than the given value.
+  """
+  endDate_gt: String
+  """
+  All values greater than or equal the given value.
+  """
+  endDate_gte: String
+  """
+  All values containing the given string.
+  """
+  endDate_contains: String
+  """
+  All values not containing the given string.
+  """
+  endDate_not_contains: String
+  """
+  All values starting with the given string.
+  """
+  endDate_starts_with: String
+  """
+  All values not starting with the given string.
+  """
+  endDate_not_starts_with: String
+  """
+  All values ending with the given string.
+  """
+  endDate_ends_with: String
+  """
+  All values not ending with the given string.
+  """
+  endDate_not_ends_with: String
   owner: UserWhereInput
   project: ProjectWhereInput
 }

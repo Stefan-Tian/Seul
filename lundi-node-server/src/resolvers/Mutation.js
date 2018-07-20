@@ -45,7 +45,7 @@ async function login(parent, args, context, info) {
 
 const createTodo = (
   parent,
-  { name, status, priority, deadline, projectId },
+  { name, status, priority, startDate, endDate, projectId },
   context,
   info
 ) => {
@@ -56,7 +56,8 @@ const createTodo = (
         name,
         status,
         priority,
-        deadline,
+        startDate,
+        endDate,
         owner: { connect: { id: userId } },
         project: { connect: { id: projectId } }
       }
@@ -67,7 +68,7 @@ const createTodo = (
 
 const updateTodo = (
   parent,
-  { name, status, priority, deadline, id },
+  { name, status, priority, startDate, endDate, id },
   context,
   info
 ) => {
@@ -77,7 +78,8 @@ const updateTodo = (
         name,
         status,
         priority,
-        deadline
+        startDate,
+        endDate
       },
       where: {
         id

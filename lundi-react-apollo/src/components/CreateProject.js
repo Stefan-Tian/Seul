@@ -2,31 +2,51 @@ import React, { Component } from "react";
 import { graphql } from "react-apollo";
 import gql from "graphql-tag";
 import { PROJECTS_QUERY } from "./ProjectList";
+import Spinning from "./Spinning";
 
 class CreateProject extends Component {
   state = {
     name: "",
-    description: ""
+    description: "",
+    creating: ""
   };
 
   render() {
     return (
-      <div>
+      <div className="create-project">
+        <input
+          autoFocus
+          className="create-project__input"
+          value={this.state.name}
+          onChange={e => this.setState({ name: e.target.value })}
+          type="text"
+          placeholder="Enter a new project name"
+        />
         <div>
-          <input
-            value={this.state.name}
-            onChange={e => this.setState({ name: e.target.value })}
-            type="text"
-            placeholder="Project Name"
-          />
+          {this.state.name ? (
+            this.state.creating ? (
+              <Spinning />
+            ) : (
+              <svg
+                className="icon-add create-todo__btn"
+                onClick={() => this._createProject()}
+              >
+                <use xlinkHref="symbols.svg#icon-plus" />
+              </svg>
+            )
+          ) : (
+            undefined
+          )}
         </div>
-        <button onClick={() => this._createProject()}>Add</button>
       </div>
     );
   }
 
   _createProject = async () => {
     const { name } = this.state;
+    this.setState(prevState =>
+      this.setState({ creating: !prevState.creating })
+    );
     await this.props.createProject({
       variables: {
         name
@@ -40,6 +60,9 @@ class CreateProject extends Component {
         });
       }
     });
+    this.setState(prevState =>
+      this.setState({ creating: !prevState.creating })
+    );
     this.setState({ name: "" });
   };
 }
@@ -53,7 +76,6 @@ const CREATE_PROJECT = gql`
       todos {
         id
         name
-        deadline
       }
     }
   }

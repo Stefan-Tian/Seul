@@ -3,9 +3,6 @@ import CreateTodo from "./CreateTodo";
 import Todo from "./Todo";
 
 class TodoList extends Component {
-  deleteTodoFromProps = id =>
-    this.props.project.todos.filter(todo => todo.id !== id);
-
   render() {
     return (
       <div className="todolist-container">
@@ -21,11 +18,7 @@ class TodoList extends Component {
         )}
         <CreateTodo projectId={this.props.project.id} />
         {this.props.project.todos.map(todo => (
-          <Todo
-            key={todo.id}
-            todo={todo}
-            deleteFromList={this.deleteTodoFromProps}
-          />
+          <Todo key={todo.id} todo={todo} />
         ))}
       </div>
     );

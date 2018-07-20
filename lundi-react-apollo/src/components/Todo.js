@@ -1,7 +1,11 @@
 import React, { Component } from "react";
 import { graphql, compose } from "react-apollo";
 import gql from "graphql-tag";
+import { DateRangePicker } from "react-dates";
+import "react-dates/initialize";
 import { PROJECTS_QUERY } from "./ProjectList";
+import Spinning from "./Spinning";
+import TimeField from "./TimeField";
 
 class Todo extends Component {
   state = {
@@ -12,10 +16,15 @@ class Todo extends Component {
     editName: false,
     editStatus: false,
     editPriority: false,
-    editDeadline: false,
+    editTimeline: false,
     posting: false,
+    settingDate: false,
     colorOfStatus: "",
-    colorOfPriority: ""
+    colorOfPriority: "",
+    deleting: false,
+    startDate: null,
+    endDate: null,
+    focusedInput: null
   };
 
   onEditName = () =>
@@ -27,8 +36,9 @@ class Todo extends Component {
   onEditPriority = () =>
     this.setState(prevState => ({ editPriority: !prevState.editPriority }));
 
-  onEditDeadline = () =>
-    this.setState(prevState => ({ editDeadline: !prevState.editDeadline }));
+  onEditTimeline = () => {
+    this.setState(prevState => ({ editTimeline: !prevState.editTimeline }));
+  };
 
   flipPostingState = () =>
     this.setState(prevState => ({ posting: !prevState.posting }));
@@ -70,6 +80,7 @@ class Todo extends Component {
           {this.state.editName ? (
             <div>
               <input
+                className="edit-todo"
                 type="text"
                 autoFocus
                 placeholder={this.props.todo.name}
@@ -77,9 +88,15 @@ class Todo extends Component {
                 onChange={e => this.setState({ name: e.target.value })}
                 onBlur={() => this._updateName()}
               />
+              <svg
+                className="icon-checkmark"
+                onClick={() => this._updateName()}
+              >
+                <use xlinkHref="symbols.svg#icon-checkmark" />
+              </svg>
             </div>
           ) : (
-            <div>
+            <div className="todo__name-layout">
               <span>
                 {this.state.posting
                   ? this.state.name || this.props.todo.name
@@ -91,12 +108,19 @@ class Todo extends Component {
               >
                 <use xlinkHref="symbols.svg#icon-edit-pencil" />
               </svg>
-              <svg
-                className="icon icon-trash"
-                onClick={() => this._deleteTodo()}
-              >
-                <use xlinkHref="symbols.svg#icon-trash" />
-              </svg>
+
+              {this.state.deleting ? (
+                <div className="delete-spinning">
+                  <Spinning />
+                </div>
+              ) : (
+                <svg
+                  className="icon icon-trash"
+                  onClick={() => this._deleteTodo()}
+                >
+                  <use xlinkHref="symbols.svg#icon-trash" />
+                </svg>
+              )}
             </div>
           )}
         </section>
@@ -114,38 +138,39 @@ class Todo extends Component {
                     : statusColor
                 }`}
                 value={this.state.status}
-                onChange={e => {
+                onChange={async e => {
                   switch (e.target.value) {
                     case "on hold":
-                      this.setState({
+                      await this.setState({
                         status: e.target.value,
                         colorOfStatus: "yellow"
                       });
                       break;
                     case "stuck":
-                      this.setState({
+                      await this.setState({
                         status: e.target.value,
                         colorOfStatus: "red"
                       });
                       break;
                     case "working on it":
-                      this.setState({
+                      await this.setState({
                         status: e.target.value,
                         colorOfStatus: "blue"
                       });
                       break;
                     case "done":
-                      this.setState({
+                      await this.setState({
                         status: e.target.value,
                         colorOfStatus: "sheen"
                       });
                       break;
                     default:
-                      this.setState({
+                      await this.setState({
                         status: e.target.value,
                         colorOfStatus: "grey"
                       });
                   }
+                  this._updateStatus();
                 }}
               >
                 <option value={this.props.todo.status}>
@@ -205,32 +230,34 @@ class Todo extends Component {
                     : priorityColor
                 }`}
                 value={this.state.priority}
-                onChange={e => {
+                onChange={async e => {
                   switch (e.target.value) {
                     case "High":
-                      this.setState({
+                      await this.setState({
                         priority: e.target.value,
                         colorOfPriority: "red"
                       });
                       break;
                     case "Medium":
-                      this.setState({
+                      await this.setState({
                         priority: e.target.value,
                         colorOfPriority: "blue"
                       });
                       break;
                     case "Low":
-                      this.setState({
+                      await this.setState({
                         priority: e.target.value,
                         colorOfPriority: "sheen"
                       });
                       break;
                     default:
-                      this.setState({
+                      await this.setState({
                         priority: e.target.value,
                         colorOfPriority: "grey"
                       });
                   }
+
+                  this._updatePriority();
                 }}
               >
                 <option value={this.props.todo.priority}>
@@ -270,7 +297,38 @@ class Todo extends Component {
           )}
         </section>
         <section className="todo__timeline">
-          {this.props.todo.deadline || "unset"}
+          {this.state.editTimeline ? (
+            <div>
+              <DateRangePicker
+                startDate={this.state.startDate}
+                endDate={this.state.endDate}
+                onDatesChange={({ startDate, endDate }) =>
+                  this.setState({ startDate, endDate })
+                }
+                focusedInput={this.state.focusedInput}
+                onFocusChange={focusedInput => this.setState({ focusedInput })}
+              />
+              <button onClick={() => this._updateTimeline()}>done</button>
+            </div>
+          ) : (
+            <div>
+              <svg className="icon" onClick={() => this.onEditTimeline()}>
+                <use xlinkHref="symbols.svg#icon-calendar" />
+              </svg>
+              <TimeField
+                startDate={
+                  this.state.settingDate
+                    ? this.state.startDate.format() || this.props.todo.startDate
+                    : this.props.todo.startDate
+                }
+                endDate={
+                  this.state.settingDate
+                    ? this.state.endDate.format() || this.props.todo.endDate
+                    : this.props.todo.endDate
+                }
+              />
+            </div>
+          )}
         </section>
       </section>
     );
@@ -338,27 +396,47 @@ class Todo extends Component {
     }
   };
 
-  _updateDeadline = async () => {
-    const { deadline } = this.state;
-    const { id } = this.props.todo;
-    this.flipPostingState();
-    this.onEditDeadline();
-    await this.props.updateTodo({
-      variables: {
-        id,
-        deadline
-      }
-    });
-    this.flipPostingState();
-    this.setState({ deadline: "" });
+  _updateTimeline = async () => {
+    const { startDate, endDate } = this.state;
+    if (startDate && endDate) {
+      const { id } = this.props.todo;
+      this.setState(prevState => ({ settingDate: !prevState.settingDate }));
+      this.onEditTimeline();
+      await this.props.updateTodo({
+        variables: {
+          id,
+          startDate,
+          endDate
+        }
+      });
+      this.setState(prevState => ({ settingDate: !prevState.settingDate }));
+      this.setState({ startDate: "", endDate: "" });
+    } else {
+      this.onEditTimeline();
+    }
   };
 
   _deleteTodo = async () => {
     const { id } = this.props.todo;
-    this.props.deleteFromList(id);
+    this.setState(prevState => ({ deleting: !prevState.deleting }));
     await this.props.deleteTodo({
-      variables: { id }
+      variables: { id },
+      update: store => {
+        const data = store.readQuery({ query: PROJECTS_QUERY });
+        data.projects.map(project => {
+          if (project.id === this.props.todo.project.id) {
+            const todoIdArray = project.todos.map(todo => todo.id);
+            project.todos.splice(todoIdArray.indexOf(id), 1);
+          }
+          return project;
+        });
+        store.writeQuery({
+          query: PROJECTS_QUERY,
+          data
+        });
+      }
     });
+    this.setState(prevState => ({ deleting: !prevState.deleting }));
   };
 }
 
@@ -368,20 +446,23 @@ const UPDATE_TODO = gql`
     $name: String
     $status: String
     $priority: String
-    $deadline: DateTime
+    $startDate: String
+    $endDate: String
   ) {
     updateTodo(
       id: $id
       name: $name
       status: $status
       priority: $priority
-      deadline: $deadline
+      startDate: $startDate
+      endDate: $endDate
     ) {
       id
       name
       status
       priority
-      deadline
+      startDate
+      endDate
     }
   }
 `;

@@ -60,8 +60,8 @@ class Login extends Component {
         }
       });
       const { token } = result.data.login;
-      this._saveUserDate(token);
-      this.props.history.push("/");
+      this._saveUserData(token);
+      this.props.history.push("/projects");
     } else {
       const result = await this.props.signupMutation({
         variables: {
@@ -71,12 +71,12 @@ class Login extends Component {
         }
       });
       const { token } = result.data.signup;
-      this._saveUserDate(token);
-      this.props.history.push("/");
+      this._saveUserData(token);
+      this.props.history.push("/projects");
     }
   };
 
-  _saveUserDate = token => localStorage.setItem(AUTH_TOKEN, token);
+  _saveUserData = token => localStorage.setItem(AUTH_TOKEN, token);
 }
 
 const SIGNUP_MUTATION = gql`

@@ -15,8 +15,8 @@
 
     &:hover {
       margin-left: 0.4rem;
-      width: 1.5rem;
-      height: 1.5rem;
+      // width: 1.5rem;
+      // height: 1.5rem;
       // transform: translateY(0.4rem);
       fill: var(--color-pink);
       cursor: pointer;
@@ -33,4 +33,52 @@
       cursor: pointer;
     }
   }
+
+  &-trash {
+    margin-left: 0.6rem;
+    width: 0;
+  }
 }
+
+@keyframes lds-rolling {
+  0% {
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+@-webkit-keyframes lds-rolling {
+  0% {
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+
+.lds-rolling div,
+.lds-rolling div:after {
+  // position: absolute;
+  width: 30px;
+  height: 30px;
+  border: 3px solid #70c1b3;
+  border-top-color: transparent;
+  border-radius: 50%;
+}
+.lds-rolling div {
+  -webkit-animation: lds-rolling 1s linear infinite;
+  animation: lds-rolling 1s linear infinite;
+}
+.lds-rolling div:after {
+  -webkit-transform: rotate(90deg);
+  transform: rotate(90deg);
+}
+// .lds-rolling {
+//   -webkit-transform: translate(-100px, -100px) scale(1) translate(100px, 100px);
+//   transform: translate(-100px, -100px) scale(1) translate(100px, 100px);
+// }

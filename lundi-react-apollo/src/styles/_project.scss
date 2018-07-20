@@ -1,0 +1,98 @@
+.project-list {
+  display: grid;
+  width: 100%;
+  height: 100%;
+
+  grid-template-columns: 16rem;
+
+  &__content {
+    grid-column: 2 / end;
+
+    width: 100%;
+    display: grid;
+
+    &-projects {
+      grid-column: 2 / -1;
+    }
+  }
+}
+
+.project {
+  margin: 2rem 4rem 8rem 7rem;
+
+  &__name {
+    font-size: 1.8rem;
+    display: flex;
+    align-items: flex-end;
+    margin-bottom: 1rem;
+    margin-left: 1rem;
+
+    &-text {
+      margin-right: 2rem;
+      color: var(--color-metal);
+    }
+
+    &-done {
+      width: 2.5rem;
+      height: 2.5rem;
+      transform: translateY(-0.8rem);
+    }
+
+    &-btn {
+      transform: translateY(-0.8rem);
+      width: 1.6rem;
+      height: 1.6rem;
+      margin-right: 0.8rem;
+    }
+
+    &-input {
+      border: 0;
+      border-bottom: 0.1994rem solid var(--color-grey);
+      padding-bottom: 0.7rem;
+      font-size: 2.7rem;
+      font-weight: 600;
+    }
+  }
+
+  &__description {
+    display: flex;
+    align-items: flex-end;
+    margin-bottom: 2.5rem;
+    margin-left: 1rem;
+
+    &-text {
+      font-size: 1.3rem;
+      margin-right: 1.2rem;
+    }
+
+    &-btn {
+      transform: translateY(-0.3rem);
+      width: 0.9rem;
+      height: 0.9rem;
+    }
+
+    &-input {
+      border: 0;
+      font-size: 1.45rem;
+      font-weight: 500;
+      border-bottom: 0.16rem solid var(--color-grey);
+      padding-bottom: 0.4rem;
+      width: 90rem;
+    }
+  }
+}
+
+.create-project {
+  display: flex;
+  width: 20rem;
+  margin: 3rem 8rem;
+  align-items: center;
+
+  &__input {
+    font-style: italic;
+    border: 0;
+    font-size: 3rem;
+    padding-bottom: 0.4rem;
+    border-bottom: 0.13rem solid var(--color-grey);
+  }
+}

@@ -42,8 +42,12 @@
 
     & > section:hover {
       & > div > .icon-pencil {
-        width: 1.2rem;
+        width: 1.3rem;
         transform: translateY(-0.08rem);
+      }
+
+      & > div > .icon-trash {
+        width: 1.3rem;
       }
     }
   }
@@ -52,6 +56,11 @@
     background-color: var(--color-grey-light);
     & > div > span {
       margin-right: 0.9rem;
+    }
+
+    &-layout {
+      display: flex;
+      align-items: center;
     }
   }
 
@@ -67,6 +76,12 @@
 
   &__timeline {
     background-color: var(--color-sheen);
+
+    &-date {
+      color: var(--color-white);
+      font-size: 1.35rem;
+      font-weight: 600;
+    }
   }
 }
 
@@ -105,6 +120,22 @@
   }
 }
 
+.create-spinning {
+  margin: 1.7rem 3rem 1.7rem 3rem;
+}
+
+.delete-spinning {
+  & > div > div {
+    display: flex;
+  }
+
+  & > div > div > div {
+    width: 20px;
+    height: 20px;
+    margin-left: 1rem;
+  }
+}
+
 .todo-select {
   display: block;
   -webkit-appearance: button;
@@ -126,4 +157,10 @@
   // -moz-padding-end: 1rem;
   // -webkit-padding-start: 1.2rem;
   // -moz-padding-start: 1.2rem;
+}
+
+.edit-todo {
+  border: 0;
+  background-color: inherit;
+  font-size: 1.5rem;
 }
