@@ -36,12 +36,12 @@
       }
     }
 
-    & > section > div > .icon-pencil {
+    & > section > div > .icon-edit {
       width: 0;
     }
 
     & > section:hover {
-      & > div > .icon-pencil {
+      & > div > .icon-edit {
         width: 1.3rem;
         transform: translateY(-0.08rem);
       }

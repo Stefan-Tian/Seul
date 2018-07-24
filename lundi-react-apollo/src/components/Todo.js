@@ -102,10 +102,7 @@ class Todo extends Component {
                   ? this.state.name || this.props.todo.name
                   : this.props.todo.name}
               </span>
-              <svg
-                className="icon icon-pencil"
-                onClick={() => this.onEditName()}
-              >
+              <svg className="icon icon-edit" onClick={() => this.onEditName()}>
                 <use xlinkHref="symbols.svg#icon-edit-pencil" />
               </svg>
 
@@ -194,7 +191,7 @@ class Todo extends Component {
                 {this.state.status || this.props.todo.status}
               </span>
               <svg
-                className="icon icon-pencil"
+                className="icon icon-edit"
                 onClick={() => this.onEditStatus()}
               >
                 <use xlinkHref="symbols.svg#icon-edit-pencil" />
@@ -206,7 +203,7 @@ class Todo extends Component {
                 {this.props.todo.status}
               </span>
               <svg
-                className="icon icon-pencil"
+                className="icon icon-edit"
                 onClick={() => this.onEditStatus()}
               >
                 <use xlinkHref="symbols.svg#icon-edit-pencil" />
@@ -278,7 +275,7 @@ class Todo extends Component {
             <div>
               <span>{this.state.priority || this.props.todo.priority}</span>
               <svg
-                className="icon icon-pencil"
+                className="icon icon-edit"
                 onClick={() => this.onEditPriority()}
               >
                 <use xlinkHref="symbols.svg#icon-edit-pencil" />
@@ -288,7 +285,7 @@ class Todo extends Component {
             <div>
               <span>{this.props.todo.priority}</span>
               <svg
-                className="icon icon-pencil"
+                className="icon icon-edit"
                 onClick={() => this.onEditPriority()}
               >
                 <use xlinkHref="symbols.svg#icon-edit-pencil" />
@@ -308,13 +305,15 @@ class Todo extends Component {
                 focusedInput={this.state.focusedInput}
                 onFocusChange={focusedInput => this.setState({ focusedInput })}
               />
-              <button onClick={() => this._updateTimeline()}>done</button>
+              <svg
+                className="icon-timeline icon-checkmark"
+                onClick={() => this._updateTimeline()}
+              >
+                <use xlinkHref="symbols.svg#icon-checkmark" />
+              </svg>
             </div>
           ) : (
-            <div>
-              <svg className="icon" onClick={() => this.onEditTimeline()}>
-                <use xlinkHref="symbols.svg#icon-calendar" />
-              </svg>
+            <div className="todo__timeline-container">
               <TimeField
                 startDate={
                   this.state.settingDate
@@ -327,6 +326,12 @@ class Todo extends Component {
                     : this.props.todo.endDate
                 }
               />
+              <svg
+                className="icon icon-edit"
+                onClick={() => this.onEditTimeline()}
+              >
+                <use xlinkHref="symbols.svg#icon-calendar" />
+              </svg>
             </div>
           )}
         </section>

@@ -8,11 +8,16 @@
   &__content {
     grid-column: 2 / end;
 
-    width: 100%;
     display: grid;
+    width: 100%;
 
     &-projects {
       grid-column: 2 / -1;
+      width: 100%;
+    }
+
+    &-timline-calendar {
+      width: 88vw;
     }
   }
 }

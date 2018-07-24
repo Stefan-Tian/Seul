@@ -13,7 +13,9 @@
   --color-sheen: #70c1b3;
   --color-foam: #b2dbbf;
   --color-yellow: #f3ffbd;
-  --color-pink: #fca5bd; }
+  --color-pink: #fca5bd;
+  --color-orange: #e2742b;
+  --width-time: 8rem; }
 
 *,
 *::before,
@@ -103,9 +105,9 @@ input:focus {
     font-weight: 400; }
     .todo-container > section:not(:first-of-type) > div > span {
       margin-right: 0.7rem; }
-  .todo-container > section > div > .icon-pencil {
+  .todo-container > section > div > .icon-edit {
     width: 0; }
-  .todo-container > section:hover > div > .icon-pencil {
+  .todo-container > section:hover > div > .icon-edit {
     width: 1.3rem;
     transform: translateY(-0.08rem); }
   .todo-container > section:hover > div > .icon-trash {
@@ -214,6 +216,11 @@ input:focus {
   .icon-trash {
     margin-left: 0.6rem;
     width: 0; }
+  .icon-calendar {
+    width: 0; }
+  .icon-timeline {
+    width: 1.8rem;
+    height: 1.8rem; }
 
 @keyframes lds-rolling {
   0% {
@@ -254,10 +261,13 @@ input:focus {
   grid-template-columns: 16rem; }
   .project-list__content {
     grid-column: 2 / end;
-    width: 100%;
-    display: grid; }
+    display: grid;
+    width: 100%; }
     .project-list__content-projects {
-      grid-column: 2 / -1; }
+      grid-column: 2 / -1;
+      width: 100%; }
+    .project-list__content-timline-calendar {
+      width: 88vw; }
 
 .project {
   margin: 2rem 4rem 8rem 7rem; }
@@ -355,8 +365,7 @@ input:focus {
   box-shadow: 0.1rem 0.3rem 0.47rem rgba(73, 72, 72, 0.3); }
   .sidebar__content {
     text-align: center;
-    overflow: scroll;
-    position: fixed; }
+    overflow: scroll; }
   .sidebar__title {
     font-size: 2rem;
     color: var(--color-metal);
@@ -396,3 +405,45 @@ input:focus {
       height: 3rem;
       background-color: var(--color-pink);
       margin-right: 1.7rem; }
+
+.timeline-calendar-container {
+  padding: 1.2rem;
+  height: 25rem;
+  display: grid;
+  color: var(--color-grey-light-2);
+  overflow: scroll;
+  grid-template-rows: 5%;
+  background: linear-gradient(to bottom, #12123f 53%, #2a2a72); }
+
+.timeline-calendar-dates-container {
+  grid-row: 1 / 2;
+  display: flex;
+  flex-direction: row; }
+
+.timeline-calendar-tasks-container {
+  margin-top: 2rem; }
+
+.timeline-calendar-date {
+  width: 8rem;
+  text-align: center;
+  min-width: 0; }
+
+.timeline-calendar-title {
+  color: #fff; }
+
+.timeline-calendar-task {
+  display: flex;
+  align-items: center;
+  margin-top: 0.5rem;
+  height: 2rem;
+  color: #fff; }
+  .timeline-calendar-task__empty {
+    color: #12123f; }
+  .timeline-calendar-task__name {
+    height: 100%;
+    padding: 0.5rem 0;
+    background-color: var(--color-sheen);
+    text-align: center;
+    font-size: 1.2rem;
+    border-radius: 1.5rem;
+    box-shadow: 0.01rem 0.01rem 0.2rem var(--color-grey-light-2); }

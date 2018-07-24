@@ -5,6 +5,7 @@ import Project from "./Project";
 import CreateProject from "./CreateProject";
 import Sidebar from "./Sidebar";
 import Header from "./Header";
+import TimelineCalendar from "./TimelineCalendar";
 
 class ProjectList extends Component {
   state = {
@@ -34,6 +35,9 @@ class ProjectList extends Component {
         <div className="project-list__content">
           <Header />
           <div className="project-list__content-projects">
+            <div className="project-list__content-timline-calendar">
+              <TimelineCalendar projects={projectsToRender} />
+            </div>
             <CreateProject />
             {projectsToRender.map(project => (
               <Project key={project.id} project={project} />
