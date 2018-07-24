@@ -8,8 +8,10 @@ class TimelineCalendar extends Component {
     let taskDurations = [];
     let projects = [];
     // fix this part
-    projects = this.props.projects.map(project => [...project.todos]);
-    projects = [...projects[0], ...projects[1]];
+    this.props.projects
+      .map(project => [...projects, ...project.todos])
+      .map(project => project.map(todo => projects.push(todo)));
+    console.log(projects);
     projects.map(todo => {
       if (todo.startDate && todo.endDate) {
         const start = moment(todo.startDate);
