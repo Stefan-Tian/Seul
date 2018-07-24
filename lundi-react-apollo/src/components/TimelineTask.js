@@ -9,13 +9,18 @@ class TimelineTask extends Component {
     const minTaskDate = moment.min(dates).clone();
     let diff = minTaskDate.diff(this.props.min, "days");
     diff ? (diff = diff + 1) : diff;
+    if (
+      minTaskDate.format("YYYYMMDD") !== this.props.min.format("YYYYMMDD") &&
+      minTaskDate.diff(this.props.min, "days") == 0
+    ) {
+      diff = 1;
+    }
     let spaces = [];
     for (let i = 0; i < diff; i++) {
       spaces.push("empty");
     }
     spaces.push(...this.props.dates);
     // now we have the space a task should span in the timeline
-    console.log(spaces);
     return (
       <div className="timeline-calendar-task">
         <span

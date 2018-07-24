@@ -7,6 +7,7 @@ class TimelineCalendar extends Component {
   render() {
     let taskDurations = [];
     let projects = [];
+    // fix this part
     projects = this.props.projects.map(project => [...project.todos]);
     projects = [...projects[0], ...projects[1]];
     projects.map(todo => {

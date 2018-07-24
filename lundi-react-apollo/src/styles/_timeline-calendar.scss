@@ -58,6 +58,7 @@
     }
 
     &__name {
+      overflow: scroll;
       height: 100%;
       padding: 0.5rem 0;
       background-color: var(--color-sheen);
