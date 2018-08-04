@@ -1,5 +1,7 @@
 .timeline-calendar-container {
-  padding: 1.2rem;
+  margin-top: -0.5rem;
+  margin-left: 0.15rem;
+  // padding: 1.2rem;
   height: 25rem;
   display: grid;
   color: var(--color-grey-light-2);
@@ -7,14 +9,26 @@
   overflow: scroll;
   grid-template-rows: 5%;
 
-  background: linear-gradient(to bottom, #12123f 53%, #2a2a72);
+  // background: linear-gradient(to bottom, #de6e4b 60%, #7a6563);
+  // background: linear-gradient(to bottom, #4ba1aa 60%, #ff5a5f);
+  background: linear-gradient(to bottom, #2591a1 55%, #f7fff7);
+  // background: linear-gradient(to bottom, #1a535c 50%, #ff6b6b);
+  // background: linear-gradient(to bottom, #e63946 50%, #dd9ad7);
 }
 
 .timeline-calendar {
   &-dates-container {
+    position: sticky;
+    height: 2.5rem;
+    top: 0px;
+    // background-color: rgba(#ee8453, 0.5);
+    background-color: rgba(#2591a1, 0.5);
+    padding-top: 1rem;
     grid-row: 1 / 2;
     display: flex;
     flex-direction: row;
+    // color: var(--color-metal);
+    font-weight: 600;
   }
 
   &-tasks-container {
@@ -28,6 +42,7 @@
     // &::before {
     //   content: "";
     //   border-right: 0.2rem solid #2a2a72;
+    // #12123f
     //   height: 100%;
     // }
   }
@@ -54,18 +69,35 @@
 
     &__empty {
       // display: none;
-      color: #12123f;
+      color: rgba(0, 0, 0, 0);
     }
 
     &__name {
-      overflow: scroll;
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      // overflow: scroll;
+      color: var(--color-metal);
       height: 100%;
-      padding: 0.5rem 0;
-      background-color: var(--color-sheen);
+      padding: 0.5rem 0.5rem;
+      background: linear-gradient(to top left, #42c7a6, #78dfd1);
       text-align: center;
       font-size: 1.2rem;
       border-radius: 1.5rem;
-      box-shadow: 0.01rem 0.01rem 0.2rem var(--color-grey-light-2);
+      box-shadow: 0.01rem 0.01rem 0.6rem rgba(200, 200, 200, 0.2);
+
+      &:hover {
+        overflow: visible;
+        span {
+          position: relative;
+          background-color: var(--color-foam);
+          // border: 1px solid gray;
+          padding: 3px;
+          /* compensate padding and border size to avoid jerking */
+          margin-left: -0.4rem;
+          display: inline;
+        }
+      }
     }
   }
 }

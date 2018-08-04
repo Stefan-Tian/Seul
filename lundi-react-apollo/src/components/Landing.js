@@ -1,5 +1,14 @@
 import React from "react";
+import LandingHeader from "./landings/LandingHeader";
+import LandingFeatures from "./landings/LandingFeatures";
+import LandingDesign from "./landings/LandingDesign";
 
-const Landing = () => <div>This is the landing page</div>;
+const Landing = props => (
+  <div className="landing--container">
+    <LandingHeader />
+    <LandingFeatures />
+    <LandingDesign />
+  </div>
+);
 
 export default Landing;

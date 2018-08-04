@@ -11,7 +11,7 @@ class TimelineTask extends Component {
     diff ? (diff = diff + 1) : diff;
     if (
       minTaskDate.format("YYYYMMDD") !== this.props.min.format("YYYYMMDD") &&
-      minTaskDate.diff(this.props.min, "days") == 0
+      minTaskDate.diff(this.props.min, "days") === 0
     ) {
       diff = 1;
     }
@@ -33,7 +33,7 @@ class TimelineTask extends Component {
           style={{ width: `${8 * dates.length}rem` }}
           className="timeline-calendar-task__name"
         >
-          {this.props.task}
+          <span>{this.props.task}</span>
         </div>
       </div>
     );

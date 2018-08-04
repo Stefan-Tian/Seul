@@ -1,0 +1,103 @@
+.login--container {
+  display: grid;
+  grid-template-rows: 1fr 5fr 1fr;
+  padding: 2rem 5rem 0 5rem;
+  margin-top: -8rem;
+  border-radius: 10px;
+  height: 150%;
+  // min-height: 100%;
+
+  background: linear-gradient(
+    to bottom right,
+    var(--color-green),
+    var(--color-sheen)
+  );
+}
+
+.login {
+  &__title {
+    justify-self: center;
+    align-self: center;
+    font-size: 3rem;
+    text-transform: capitalize;
+    background: linear-gradient(
+      to bottom right,
+      var(--color-white),
+      var(--color-grey-light)
+    );
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    -webkit-background-clip: text;
+    font-weight: 700;
+  }
+
+  &-fields {
+    &--container {
+      display: grid;
+    }
+    &--single-field {
+      display: flex;
+      flex-direction: column;
+
+      & > span {
+        background: linear-gradient(
+          to bottom right,
+          var(--color-white),
+          var(--color-grey-light)
+        );
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+        -webkit-background-clip: text;
+        font-weight: 700;
+        font-size: 2rem;
+        margin-bottom: 1rem;
+      }
+
+      & > input {
+        border: 0;
+        height: 4rem;
+        padding: 0.5rem;
+        font-size: 1.9rem;
+        border-radius: 5px;
+        background-color: white;
+        background: linear-gradient(
+          to bottom right,
+          var(--color-grey-light-2),
+          var(--color-white)
+        );
+      }
+
+      & > input:last-of-type {
+        margin-bottom: 2rem;
+      }
+    }
+
+    &--btns {
+      font-size: 2rem;
+      margin-top: -1.9rem;
+      color: white;
+
+      &__confirm {
+        margin-top: -3rem;
+        border: 0;
+        background: #ecbf42;
+        border-radius: 3px;
+        padding: 1.3rem 2rem;
+        font-size: 1.6rem;
+
+        &:hover {
+          cursor: pointer;
+          background: lighten(#ecbf42, 15%);
+        }
+      }
+
+      &__switch {
+        margin-top: 0.1rem;
+        // font-weight: 200;
+        &:hover {
+          cursor: pointer;
+        }
+      }
+    }
+  }
+}

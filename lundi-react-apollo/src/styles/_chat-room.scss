@@ -1,0 +1,130 @@
+.chat-room {
+  height: 100vh;
+  width: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background-color: rgba(#000000, 0.8);
+  z-index: 3;
+
+  &__content {
+    position: absolute;
+    right: 0;
+    width: 35vw;
+    height: 100vh;
+    background-color: var(--color-white);
+    animation: slide-out 0.4s linear;
+    animation-direction: alternate;
+    text-align: center;
+    padding: 2rem;
+
+    &__spinning {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+
+    &__title {
+      font-weight: 600;
+      font-size: 2.6rem;
+      text-transform: uppercase;
+      margin-right: 2.6rem;
+      margin-left: 4rem;
+    }
+
+    &__chat {
+      height: 72vh;
+      padding: 3rem;
+      margin: 1rem;
+      background-color: var(--color-grey-light-2);
+      border-radius: 0.4rem;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      overflow: scroll;
+
+      &__message {
+        margin-top: 2rem;
+        background-color: var(--color-foam);
+        padding: 0.8rem;
+        border-radius: 0.7rem;
+        width: auto;
+        height: auto;
+        // flex-basis: auto;
+        position: relative;
+
+        &::after {
+          content: "";
+          position: absolute;
+          bottom: 0;
+          left: 80%;
+          top: 90%;
+          width: 0rem;
+          height: 0rem;
+          border: 1.5rem solid transparent;
+          border-top-color: var(--color-foam);
+          border-bottom: 0;
+          border-right: 0;
+          margin-left: -2rem;
+          margin-top: -0.02rem;
+        }
+      }
+
+      &__message:first-of-type {
+        margin-top: auto;
+      }
+    }
+
+    &__container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 30.5vw;
+      margin: 1rem;
+    }
+
+    &__input {
+      border: 0.3rem solid var(--color-sheen);
+      width: 30.5vw;
+      height: 8rem;
+      resize: none;
+      padding: 1rem;
+    }
+
+    &__send {
+      fill: var(--color-sheen);
+      width: 4vw;
+      height: 8rem;
+      border: 0.3rem solid var(--color-sheen);
+      border-left: none;
+      padding: 1rem;
+    }
+  }
+
+  &__encouragement {
+    text-align: left;
+    position: absolute;
+    line-height: 3rem;
+    height: 40vh;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: var(--color-grey);
+    font-size: 2.6rem;
+  }
+}
+
+@keyframes slide-out {
+  0% {
+    width: 0vw;
+  }
+
+  80% {
+    width: 32vw;
+  }
+
+  100% {
+    width: 35vw;
+  }
+}

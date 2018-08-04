@@ -9,6 +9,13 @@ type Todo {
   endDate: String
   owner: User
   project: Project
+  messages: [Message!]!
+}
+
+type Message {
+  id: ID! @unique
+  belongsTo: Todo
+  message: String!
 }
 
 type Project {

@@ -23,12 +23,13 @@ const middlewareAuthLink = new ApolloLink((operation, forward) => {
       authorization: authorizationHeader
     }
   });
+  console.log(authorizationHeader);
   return forward(operation);
 });
 
 const httpLinkWithAuthentication = middlewareAuthLink.concat(httpLink);
 
-const client = new ApolloClient({
+export const client = new ApolloClient({
   link: httpLinkWithAuthentication,
   cache: new InMemoryCache()
 });

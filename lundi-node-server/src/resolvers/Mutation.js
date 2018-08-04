@@ -134,6 +134,17 @@ const deleteProject = (parent, { id }, context, info) =>
     info
   );
 
+const createMessage = (parent, { todoId, message }, context, info) =>
+  context.db.mutation.createMessage(
+    {
+      data: {
+        message,
+        belongsTo: { connect: { id: todoId } }
+      }
+    },
+    info
+  );
+
 export default {
   signup,
   login,
@@ -142,5 +153,6 @@ export default {
   deleteTodo,
   createProject,
   updateProject,
-  deleteProject
+  deleteProject,
+  createMessage
 };

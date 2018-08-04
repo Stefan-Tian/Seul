@@ -54,13 +54,49 @@
 
   &__name {
     background-color: var(--color-grey-light);
-    & > div > span {
-      margin-right: 0.9rem;
-    }
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
 
     &-layout {
-      display: flex;
+      display: grid;
       align-items: center;
+      grid-template-columns: 9fr 1fr 1fr;
+      grid-template-rows: 1.65rem;
+
+      & > span {
+        grid-row: 1 / 2;
+        // height: 1.4rem;
+        // display: inline-block;
+        // width: 3rem;
+        margin-right: 0.9rem;
+        min-width: 0;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+
+        &:hover {
+          cursor: pointer;
+          overflow: visible;
+          white-space: normal;
+
+          & > span {
+            width: auto;
+            z-index: 3;
+            color: var(--color-white);
+            position: relative;
+            background-color: var(--color-sheen);
+            padding: 0.4rem 0.8rem;
+            /* compensate padding and border size to avoid jerking */
+            margin-left: -0.4rem;
+            display: inline-block;
+          }
+        }
+
+        & > svg {
+          grid-row: 1 / 2;
+        }
+      }
     }
   }
 

@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { graphql, compose } from "react-apollo";
 import gql from "graphql-tag";
+import { withRouter } from "react-router";
 import { AUTH_TOKEN } from "../constants";
 
 class Login extends Component {
@@ -13,34 +14,52 @@ class Login extends Component {
 
   render() {
     return (
-      <div>
-        <div>
+      <div className="login--container">
+        <div className="login__title">
+          {this.state.login ? "sign in" : "create an account"}
+        </div>
+        <div className="login-fields--container">
           {!this.state.login && (
+            <div className="login-fields--single-field">
+              <span>Your Name</span>
+              <input
+                type="text"
+                value={this.state.name}
+                onChange={e => this.setState({ name: e.target.value })}
+                placeholder="name"
+              />
+            </div>
+          )}
+          <div className="login-fields--single-field">
+            <span>Your Email</span>
             <input
               type="text"
-              value={this.state.name}
-              onChange={e => this.setState({ name: e.target.value })}
-              placeholder="Your name"
+              value={this.state.email}
+              onChange={e => this.setState({ email: e.target.value })}
+              placeholder="email"
             />
-          )}
-          <input
-            type="text"
-            value={this.state.email}
-            onChange={e => this.setState({ email: e.target.value })}
-            placeholder="Your email"
-          />
-          <input
-            type="password"
-            value={this.state.password}
-            onChange={e => this.setState({ password: e.target.value })}
-            placeholder="Your password"
-          />
-        </div>
-        <div>
-          <div onClick={() => this._confirm()}>
-            {this.state.login ? "login" : "create an account"}
           </div>
-          <div onClick={() => this.setState({ login: !this.state.login })}>
+          <div className="login-fields--single-field">
+            <span>Your Password</span>
+            <input
+              type="password"
+              value={this.state.password}
+              onChange={e => this.setState({ password: e.target.value })}
+              placeholder="password"
+            />
+          </div>
+        </div>
+        <div className="login-fields--btns">
+          <button
+            className="login-fields--btns__confirm"
+            onClick={() => this._confirm()}
+          >
+            {this.state.login ? "sign in" : "create an account"}
+          </button>
+          <div
+            className="login-fields--btns__switch"
+            onClick={() => this.setState({ login: !this.state.login })}
+          >
             {this.state.login
               ? "need to create an account?"
               : "already have an account?"}
@@ -96,6 +115,7 @@ const LOGIN_MUTATION = gql`
 `;
 
 export default compose(
+  withRouter,
   graphql(SIGNUP_MUTATION, { name: "signupMutation" }),
   graphql(LOGIN_MUTATION, { name: "loginMutation" })
 )(Login);

@@ -1,16 +1,18 @@
-# import Todo, TodoSubscriptionPayload, TodoOrderByInput, Project, ProjectSubscriptionPayload, ProjectOrderByInput from "./generated/prisma.graphql"
+# import Chat, Message, Todo, TodoSubscriptionPayload, TodoOrderByInput, Project, ProjectSubscriptionPayload, ProjectOrderByInput from "./generated/prisma.graphql"
 
 type Query {
   info: String!
-  project(id: String!): Project!
-  todo(id: String!): Todo!
+  project(id: String!, owner: String!): Project!
+  todo(id: String!, owner: String!): Todo!
   projects(
+    owner: String!
     filter: String
     skip: Int
     first: Int
     orderBy: ProjectOrderByInput
   ): [Project!]!
   todos(
+    owner: String!
     filter: String
     skip: Int
     first: Int
@@ -39,6 +41,7 @@ type Mutation {
     id: String!
   ): Todo!
   deleteTodo(id: String!): Todo
+  createMessage(message: String!, todoId: String!): Message
   signup(email: String!, password: String!, name: String!): AuthPayload
   login(email: String!, password: String!): AuthPayload
 }

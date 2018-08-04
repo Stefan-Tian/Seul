@@ -5,6 +5,12 @@
 # Model Types
 #
 
+type Message implements Node {
+  id: ID!
+  belongsTo(where: TodoWhereInput): Todo
+  message: String!
+}
+
 type Project implements Node {
   id: ID!
   name: String!
@@ -24,6 +30,7 @@ type Todo implements Node {
   endDate: String
   owner(where: UserWhereInput): User
   project(where: ProjectWhereInput): Project
+  messages(where: MessageWhereInput, orderBy: MessageOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Message!]
 }
 
 type User implements Node {
@@ -39,6 +46,10 @@ type User implements Node {
 #
 # Other Types
 #
+
+type AggregateMessage {
+  count: Int!
+}
 
 type AggregateProject {
   count: Int!
@@ -67,23 +78,282 @@ Long can represent values between -(2^63) and 2^63 - 1.
 """
 scalar Long
 
+"""
+A connection to a list of items.
+"""
+type MessageConnection {
+  """
+  Information to aid in pagination.
+  """
+  pageInfo: PageInfo!
+  """
+  A list of edges.
+  """
+  edges: [MessageEdge]!
+  aggregate: AggregateMessage!
+}
+
+input MessageCreateInput {
+  message: String!
+  belongsTo: TodoCreateOneWithoutMessagesInput
+}
+
+input MessageCreateManyWithoutBelongsToInput {
+  create: [MessageCreateWithoutBelongsToInput!]
+  connect: [MessageWhereUniqueInput!]
+}
+
+input MessageCreateWithoutBelongsToInput {
+  message: String!
+}
+
+"""
+An edge in a connection.
+"""
+type MessageEdge {
+  """
+  The item at the end of the edge.
+  """
+  node: Message!
+  """
+  A cursor for use in pagination.
+  """
+  cursor: String!
+}
+
+enum MessageOrderByInput {
+  id_ASC
+  id_DESC
+  message_ASC
+  message_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+  createdAt_ASC
+  createdAt_DESC
+}
+
+type MessagePreviousValues {
+  id: ID!
+  message: String!
+}
+
+type MessageSubscriptionPayload {
+  mutation: MutationType!
+  node: Message
+  updatedFields: [String!]
+  previousValues: MessagePreviousValues
+}
+
+input MessageSubscriptionWhereInput {
+  """
+  Logical AND on all given filters.
+  """
+  AND: [MessageSubscriptionWhereInput!]
+  """
+  Logical OR on all given filters.
+  """
+  OR: [MessageSubscriptionWhereInput!]
+  """
+  Logical NOT on all given filters combined by AND.
+  """
+  NOT: [MessageSubscriptionWhereInput!]
+  """
+  The subscription event gets dispatched when it's listed in mutation_in
+  """
+  mutation_in: [MutationType!]
+  """
+  The subscription event gets only dispatched when one of the updated fields names is included in this list
+  """
+  updatedFields_contains: String
+  """
+  The subscription event gets only dispatched when all of the field names included in this list have been updated
+  """
+  updatedFields_contains_every: [String!]
+  """
+  The subscription event gets only dispatched when some of the field names included in this list have been updated
+  """
+  updatedFields_contains_some: [String!]
+  node: MessageWhereInput
+}
+
+input MessageUpdateInput {
+  message: String
+  belongsTo: TodoUpdateOneWithoutMessagesInput
+}
+
+input MessageUpdateManyWithoutBelongsToInput {
+  create: [MessageCreateWithoutBelongsToInput!]
+  connect: [MessageWhereUniqueInput!]
+  disconnect: [MessageWhereUniqueInput!]
+  delete: [MessageWhereUniqueInput!]
+  update: [MessageUpdateWithWhereUniqueWithoutBelongsToInput!]
+  upsert: [MessageUpsertWithWhereUniqueWithoutBelongsToInput!]
+}
+
+input MessageUpdateWithoutBelongsToDataInput {
+  message: String
+}
+
+input MessageUpdateWithWhereUniqueWithoutBelongsToInput {
+  where: MessageWhereUniqueInput!
+  data: MessageUpdateWithoutBelongsToDataInput!
+}
+
+input MessageUpsertWithWhereUniqueWithoutBelongsToInput {
+  where: MessageWhereUniqueInput!
+  update: MessageUpdateWithoutBelongsToDataInput!
+  create: MessageCreateWithoutBelongsToInput!
+}
+
+input MessageWhereInput {
+  """
+  Logical AND on all given filters.
+  """
+  AND: [MessageWhereInput!]
+  """
+  Logical OR on all given filters.
+  """
+  OR: [MessageWhereInput!]
+  """
+  Logical NOT on all given filters combined by AND.
+  """
+  NOT: [MessageWhereInput!]
+  id: ID
+  """
+  All values that are not equal to given value.
+  """
+  id_not: ID
+  """
+  All values that are contained in given list.
+  """
+  id_in: [ID!]
+  """
+  All values that are not contained in given list.
+  """
+  id_not_in: [ID!]
+  """
+  All values less than the given value.
+  """
+  id_lt: ID
+  """
+  All values less than or equal the given value.
+  """
+  id_lte: ID
+  """
+  All values greater than the given value.
+  """
+  id_gt: ID
+  """
+  All values greater than or equal the given value.
+  """
+  id_gte: ID
+  """
+  All values containing the given string.
+  """
+  id_contains: ID
+  """
+  All values not containing the given string.
+  """
+  id_not_contains: ID
+  """
+  All values starting with the given string.
+  """
+  id_starts_with: ID
+  """
+  All values not starting with the given string.
+  """
+  id_not_starts_with: ID
+  """
+  All values ending with the given string.
+  """
+  id_ends_with: ID
+  """
+  All values not ending with the given string.
+  """
+  id_not_ends_with: ID
+  message: String
+  """
+  All values that are not equal to given value.
+  """
+  message_not: String
+  """
+  All values that are contained in given list.
+  """
+  message_in: [String!]
+  """
+  All values that are not contained in given list.
+  """
+  message_not_in: [String!]
+  """
+  All values less than the given value.
+  """
+  message_lt: String
+  """
+  All values less than or equal the given value.
+  """
+  message_lte: String
+  """
+  All values greater than the given value.
+  """
+  message_gt: String
+  """
+  All values greater than or equal the given value.
+  """
+  message_gte: String
+  """
+  All values containing the given string.
+  """
+  message_contains: String
+  """
+  All values not containing the given string.
+  """
+  message_not_contains: String
+  """
+  All values starting with the given string.
+  """
+  message_starts_with: String
+  """
+  All values not starting with the given string.
+  """
+  message_not_starts_with: String
+  """
+  All values ending with the given string.
+  """
+  message_ends_with: String
+  """
+  All values not ending with the given string.
+  """
+  message_not_ends_with: String
+  belongsTo: TodoWhereInput
+}
+
+input MessageWhereUniqueInput {
+  id: ID
+}
+
 type Mutation {
   createTodo(data: TodoCreateInput!): Todo!
+  createMessage(data: MessageCreateInput!): Message!
   createProject(data: ProjectCreateInput!): Project!
   createUser(data: UserCreateInput!): User!
   updateTodo(data: TodoUpdateInput!, where: TodoWhereUniqueInput!): Todo
+  updateMessage(data: MessageUpdateInput!, where: MessageWhereUniqueInput!): Message
   updateProject(data: ProjectUpdateInput!, where: ProjectWhereUniqueInput!): Project
   updateUser(data: UserUpdateInput!, where: UserWhereUniqueInput!): User
   deleteTodo(where: TodoWhereUniqueInput!): Todo
+  deleteMessage(where: MessageWhereUniqueInput!): Message
   deleteProject(where: ProjectWhereUniqueInput!): Project
   deleteUser(where: UserWhereUniqueInput!): User
   upsertTodo(where: TodoWhereUniqueInput!, create: TodoCreateInput!, update: TodoUpdateInput!): Todo!
+  upsertMessage(where: MessageWhereUniqueInput!, create: MessageCreateInput!, update: MessageUpdateInput!): Message!
   upsertProject(where: ProjectWhereUniqueInput!, create: ProjectCreateInput!, update: ProjectUpdateInput!): Project!
   upsertUser(where: UserWhereUniqueInput!, create: UserCreateInput!, update: UserUpdateInput!): User!
   updateManyTodoes(data: TodoUpdateInput!, where: TodoWhereInput): BatchPayload!
+  updateManyMessages(data: MessageUpdateInput!, where: MessageWhereInput): BatchPayload!
   updateManyProjects(data: ProjectUpdateInput!, where: ProjectWhereInput): BatchPayload!
   updateManyUsers(data: UserUpdateInput!, where: UserWhereInput): BatchPayload!
   deleteManyTodoes(where: TodoWhereInput): BatchPayload!
+  deleteManyMessages(where: MessageWhereInput): BatchPayload!
   deleteManyProjects(where: ProjectWhereInput): BatchPayload!
   deleteManyUsers(where: UserWhereInput): BatchPayload!
 }
@@ -479,12 +749,15 @@ input ProjectWhereUniqueInput {
 
 type Query {
   todoes(where: TodoWhereInput, orderBy: TodoOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Todo]!
+  messages(where: MessageWhereInput, orderBy: MessageOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Message]!
   projects(where: ProjectWhereInput, orderBy: ProjectOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Project]!
   users(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [User]!
   todo(where: TodoWhereUniqueInput!): Todo
+  message(where: MessageWhereUniqueInput!): Message
   project(where: ProjectWhereUniqueInput!): Project
   user(where: UserWhereUniqueInput!): User
   todoesConnection(where: TodoWhereInput, orderBy: TodoOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): TodoConnection!
+  messagesConnection(where: MessageWhereInput, orderBy: MessageOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): MessageConnection!
   projectsConnection(where: ProjectWhereInput, orderBy: ProjectOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): ProjectConnection!
   usersConnection(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): UserConnection!
   """
@@ -498,6 +771,7 @@ type Query {
 
 type Subscription {
   todo(where: TodoSubscriptionWhereInput): TodoSubscriptionPayload
+  message(where: MessageSubscriptionWhereInput): MessageSubscriptionPayload
   project(where: ProjectSubscriptionWhereInput): ProjectSubscriptionPayload
   user(where: UserSubscriptionWhereInput): UserSubscriptionPayload
 }
@@ -525,6 +799,7 @@ input TodoCreateInput {
   endDate: String
   owner: UserCreateOneWithoutTodosInput
   project: ProjectCreateOneWithoutTodosInput
+  messages: MessageCreateManyWithoutBelongsToInput
 }
 
 input TodoCreateManyWithoutOwnerInput {
@@ -537,6 +812,21 @@ input TodoCreateManyWithoutProjectInput {
   connect: [TodoWhereUniqueInput!]
 }
 
+input TodoCreateOneWithoutMessagesInput {
+  create: TodoCreateWithoutMessagesInput
+  connect: TodoWhereUniqueInput
+}
+
+input TodoCreateWithoutMessagesInput {
+  name: String!
+  status: String
+  priority: String
+  startDate: String
+  endDate: String
+  owner: UserCreateOneWithoutTodosInput
+  project: ProjectCreateOneWithoutTodosInput
+}
+
 input TodoCreateWithoutOwnerInput {
   name: String!
   status: String
@@ -544,6 +834,7 @@ input TodoCreateWithoutOwnerInput {
   startDate: String
   endDate: String
   project: ProjectCreateOneWithoutTodosInput
+  messages: MessageCreateManyWithoutBelongsToInput
 }
 
 input TodoCreateWithoutProjectInput {
@@ -553,6 +844,7 @@ input TodoCreateWithoutProjectInput {
   startDate: String
   endDate: String
   owner: UserCreateOneWithoutTodosInput
+  messages: MessageCreateManyWithoutBelongsToInput
 }
 
 """
@@ -646,6 +938,7 @@ input TodoUpdateInput {
   endDate: String
   owner: UserUpdateOneWithoutTodosInput
   project: ProjectUpdateOneWithoutTodosInput
+  messages: MessageUpdateManyWithoutBelongsToInput
 }
 
 input TodoUpdateManyWithoutOwnerInput {
@@ -666,6 +959,25 @@ input TodoUpdateManyWithoutProjectInput {
   upsert: [TodoUpsertWithWhereUniqueWithoutProjectInput!]
 }
 
+input TodoUpdateOneWithoutMessagesInput {
+  create: TodoCreateWithoutMessagesInput
+  connect: TodoWhereUniqueInput
+  disconnect: Boolean
+  delete: Boolean
+  update: TodoUpdateWithoutMessagesDataInput
+  upsert: TodoUpsertWithoutMessagesInput
+}
+
+input TodoUpdateWithoutMessagesDataInput {
+  name: String
+  status: String
+  priority: String
+  startDate: String
+  endDate: String
+  owner: UserUpdateOneWithoutTodosInput
+  project: ProjectUpdateOneWithoutTodosInput
+}
+
 input TodoUpdateWithoutOwnerDataInput {
   name: String
   status: String
@@ -673,6 +985,7 @@ input TodoUpdateWithoutOwnerDataInput {
   startDate: String
   endDate: String
   project: ProjectUpdateOneWithoutTodosInput
+  messages: MessageUpdateManyWithoutBelongsToInput
 }
 
 input TodoUpdateWithoutProjectDataInput {
@@ -682,6 +995,7 @@ input TodoUpdateWithoutProjectDataInput {
   startDate: String
   endDate: String
   owner: UserUpdateOneWithoutTodosInput
+  messages: MessageUpdateManyWithoutBelongsToInput
 }
 
 input TodoUpdateWithWhereUniqueWithoutOwnerInput {
@@ -692,6 +1006,11 @@ input TodoUpdateWithWhereUniqueWithoutOwnerInput {
 input TodoUpdateWithWhereUniqueWithoutProjectInput {
   where: TodoWhereUniqueInput!
   data: TodoUpdateWithoutProjectDataInput!
+}
+
+input TodoUpsertWithoutMessagesInput {
+  update: TodoUpdateWithoutMessagesDataInput!
+  create: TodoCreateWithoutMessagesInput!
 }
 
 input TodoUpsertWithWhereUniqueWithoutOwnerInput {
@@ -1097,6 +1416,9 @@ input TodoWhereInput {
   endDate_not_ends_with: String
   owner: UserWhereInput
   project: ProjectWhereInput
+  messages_every: MessageWhereInput
+  messages_some: MessageWhereInput
+  messages_none: MessageWhereInput
 }
 
 input TodoWhereUniqueInput {

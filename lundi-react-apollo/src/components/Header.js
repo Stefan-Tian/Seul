@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { withRouter } from "react-router";
 import { AUTH_TOKEN } from "../constants";
+import { client } from "../index";
 
 class Header extends Component {
   render() {
@@ -18,6 +19,7 @@ class Header extends Component {
             onClick={() => {
               localStorage.removeItem(AUTH_TOKEN);
               this.props.history.push("/");
+              client.resetStore();
             }}
           >
             logout

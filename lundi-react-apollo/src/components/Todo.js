@@ -6,6 +6,7 @@ import "react-dates/initialize";
 import { PROJECTS_QUERY } from "./ProjectList";
 import Spinning from "./Spinning";
 import TimeField from "./TimeField";
+import ChatRoom from "./ChatRoom";
 
 class Todo extends Component {
   state = {
@@ -24,7 +25,8 @@ class Todo extends Component {
     deleting: false,
     startDate: null,
     endDate: null,
-    focusedInput: null
+    focusedInput: null,
+    showChat: false
   };
 
   onEditName = () =>
@@ -97,10 +99,18 @@ class Todo extends Component {
             </div>
           ) : (
             <div className="todo__name-layout">
-              <span>
-                {this.state.posting
-                  ? this.state.name || this.props.todo.name
-                  : this.props.todo.name}
+              <span
+                onClick={() =>
+                  this.setState(prevState => ({
+                    showChat: !prevState.showChat
+                  }))
+                }
+              >
+                <span>
+                  {this.state.posting
+                    ? this.state.name || this.props.todo.name
+                    : this.props.todo.name}
+                </span>
               </span>
               <svg className="icon icon-edit" onClick={() => this.onEditName()}>
                 <use xlinkHref="symbols.svg#icon-edit-pencil" />
@@ -335,6 +345,18 @@ class Todo extends Component {
             </div>
           )}
         </section>
+        {this.state.showChat ? (
+          <ChatRoom
+            todoId={this.props.todo.id}
+            toggleChat={() =>
+              this.setState(prevState => ({
+                showChat: !prevState.showChat
+              }))
+            }
+          />
+        ) : (
+          undefined
+        )}
       </section>
     );
   }

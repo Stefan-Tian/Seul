@@ -7,6 +7,10 @@
   align-items: center;
   justify-content: space-between;
   padding: 3rem;
+  position: sticky;
+  top: 0px;
+  background-color: #fff;
+  z-index: 2;
 
   &__name {
     font-family: "Righteous", cursive;
@@ -16,6 +20,8 @@
   }
 
   &__log {
+    border: 0;
+    text-decoration: none;
     font-size: 1.5rem;
     font-weight: 600;
     color: var(--color-metal);
@@ -27,9 +33,9 @@
   }
 
   &__logo {
-    height: 3.5rem;
-    width: 3.7rem;
-    margin-right: 0.5rem;
-    transform: translateY(0.2rem);
+    height: 3.7rem;
+    width: 3.5rem;
+    margin-right: 0.7rem;
+    transform: translateY(0.4rem);
   }
 }
