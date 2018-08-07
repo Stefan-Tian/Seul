@@ -11,7 +11,7 @@ class Header extends Component {
       <header className="header">
         <Link className="header__name" to="/">
           <img className="header__logo" src="/lundi-logo.png" alt="logo" />
-          lundi
+          Seul
         </Link>
         {authToken ? (
           <div

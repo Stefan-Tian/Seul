@@ -2,17 +2,15 @@
 
 type Query {
   info: String!
-  project(id: String!, owner: String!): Project!
-  todo(id: String!, owner: String!): Todo!
+  project(id: String!): Project!
+  todo(id: String!): Todo!
   projects(
-    owner: String!
     filter: String
     skip: Int
     first: Int
     orderBy: ProjectOrderByInput
   ): [Project!]!
   todos(
-    owner: String!
     filter: String
     skip: Int
     first: Int

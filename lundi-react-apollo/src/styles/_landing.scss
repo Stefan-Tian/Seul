@@ -23,9 +23,9 @@
   }
 
   &__header {
-    font-family: "Righteous", cursive;
+    font-family: "Ubuntu Condensed", sans-serif;
     padding: 2rem 12rem;
-    font-size: 3rem;
+    font-size: 3.2rem;
     color: var(--color-sheen);
     display: flex;
 
@@ -66,8 +66,13 @@
 
         display: flex;
 
-        & > button {
+        & > a {
+          display: block;
+          color: inherit;
+          text-align: center;
+          text-decoration: none;
           font-size: 1.5rem;
+          padding: 1.2rem;
           height: 4.2rem;
           margin-right: 3.5rem;
           border: 0;
@@ -85,9 +90,14 @@
             color: white;
             cursor: pointer;
           }
+
+          // & > a {
+          //   text-decoration: none;
+          //   color: inherit;
+          // }
         }
 
-        & > button:first-of-type {
+        & > a:first-of-type {
           width: 13rem;
           color: white;
           background: linear-gradient(

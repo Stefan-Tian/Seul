@@ -1,5 +1,6 @@
 @import url("https://fonts.googleapis.com/css?family=Arimo");
 @import url("https://fonts.googleapis.com/css?family=Righteous");
+@import url("https://fonts.googleapis.com/css?family=Ubuntu+Condensed");
 :root {
   --color-white: #ffffff;
   --color-black: #171c26;
@@ -375,7 +376,7 @@ input:focus {
   background-color: #fff;
   z-index: 2; }
   .header__name {
-    font-family: "Righteous", cursive;
+    font-family: "Ubuntu Condensed", sans-serif;
     text-decoration: none;
     color: var(--color-sheen);
     font-size: 3.7rem; }
@@ -613,9 +614,9 @@ input:focus {
   -webkit-clip-path: polygon(0 0, 100% 0, 100% 86%, 0 100%); }
 
 .landing-header__header {
-  font-family: "Righteous", cursive;
+  font-family: "Ubuntu Condensed", sans-serif;
   padding: 2rem 12rem;
-  font-size: 3rem;
+  font-size: 3.2rem;
   color: var(--color-sheen);
   display: flex; }
   .landing-header__header__logo {
@@ -645,8 +646,13 @@ input:focus {
     .landing-header__content--slogan__btns {
       grid-row: 3 / 4;
       display: flex; }
-      .landing-header__content--slogan__btns > button {
+      .landing-header__content--slogan__btns > a {
+        display: block;
+        color: inherit;
+        text-align: center;
+        text-decoration: none;
         font-size: 1.5rem;
+        padding: 1.2rem;
         height: 4.2rem;
         margin-right: 3.5rem;
         border: 0;
@@ -654,15 +660,15 @@ input:focus {
         width: 10rem;
         background: linear-gradient(to bottom right, var(--color-white), var(--color-white));
         box-shadow: 0.05rem 0.05rem 0.5rem rgba(0, 0, 0, 0.2); }
-        .landing-header__content--slogan__btns > button:hover {
+        .landing-header__content--slogan__btns > a:hover {
           background: black;
           color: white;
           cursor: pointer; }
-      .landing-header__content--slogan__btns > button:first-of-type {
+      .landing-header__content--slogan__btns > a:first-of-type {
         width: 13rem;
         color: white;
         background: linear-gradient(to bottom right, var(--color-green), var(--color-sheen)); }
-        .landing-header__content--slogan__btns > button:first-of-type:hover {
+        .landing-header__content--slogan__btns > a:first-of-type:hover {
           background: white;
           color: var(--color-sheen);
           cursor: pointer; }
