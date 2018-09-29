@@ -1,17 +1,28 @@
 import React from "react";
 import { Route, Redirect } from "react-router-dom";
-import { AUTH_TOKEN } from "../constants";
+import gql from "graphql-tag";
+import { graphql } from "react-apollo";
 
-const PublicRoute = ({ component: Component, ...rest }) => {
-  const token = localStorage.getItem(AUTH_TOKEN);
+// just check if currentUser is true or false
+// when logout, clear the session
+const PublicRoute = ({ component: Component, ...rest, currentUser }) => {
+  if (currentUser && currentUser.loading) {
+    return <div>Wait a sec...</div>;
+  }
   return (
     <Route
       {...rest}
       component={props =>
-        token ? <Redirect to="/projects" /> : <Component {...props} />
+        currentUser.currentUser ? <Redirect to="/projects" /> : <Component {...props} />
       }
     />
   );
 };
 
-export default PublicRoute;
+const CURRENT_USER = gql`
+  query CurrentUser {
+    currentUser
+  }
+`;
+
+export default graphql(CURRENT_USER, { name: "currentUser" })(PublicRoute);

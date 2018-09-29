@@ -1,6 +1,5 @@
 import bcrypt from "bcryptjs";
-import jwt from "jsonwebtoken";
-import { APP_SECRET, getUserId } from "../utils";
+import { getUserId } from "../utils";
 
 async function signup(parent, args, context, info) {
   const password = await bcrypt.hash(args.password, 10);
@@ -11,12 +10,10 @@ async function signup(parent, args, context, info) {
     `{ id }`
   );
 
-  console.log(APP_SECRET);
-
-  const token = jwt.sign({ userId: user.id }, APP_SECRET);
+  context.request.session.userId = user.id;
+  console.log(context.db.query.currentUser);
 
   return {
-    token,
     user
   };
 }
@@ -26,6 +23,7 @@ async function login(parent, args, context, info) {
     { where: { email: args.email } },
     ` { id password } `
   );
+
   if (!user) {
     throw new Error("No such user found");
   }
@@ -34,14 +32,20 @@ async function login(parent, args, context, info) {
   if (!valid) {
     throw new Error("Invalid password");
   }
-
-  const token = jwt.sign({ userId: user.id }, APP_SECRET);
+  context.request.session.userId = user.id;
 
   return {
-    token,
     user
   };
 }
+
+const logout = (parent, args, context, info) => {
+  context.request.session.destroy(err => {
+    if (err) {
+      console.log(err);
+    }
+  });
+};
 
 const createTodo = (
   parent,
@@ -148,6 +152,7 @@ const createMessage = (parent, { todoId, message }, context, info) =>
 export default {
   signup,
   login,
+  logout,
   createTodo,
   updateTodo,
   deleteTodo,

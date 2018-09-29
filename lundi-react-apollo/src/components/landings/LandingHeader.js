@@ -18,7 +18,7 @@ const LandingHeader = () => (
         </span>
         <span className="landing-header__content--slogan__des">
           Seul is a project management app designed specifically for people who
-          works alone. It's best suited for someone working on their own side
+          work alone. It's best suited for someone working on their own side
           projects yet does not have anyone to collaborate with. (in case it's
           not obvious enough, that <span className="someone">someone</span> is
           me.)

@@ -8,7 +8,7 @@ class TimelineTask extends Component {
     );
     const minTaskDate = moment.min(dates).clone();
     let diff = minTaskDate.diff(this.props.min, "days");
-    diff ? (diff = diff + 1) : diff;
+    diff = diff ? diff + 1 : diff;
     if (
       minTaskDate.format("YYYYMMDD") !== this.props.min.format("YYYYMMDD") &&
       minTaskDate.diff(this.props.min, "days") === 0

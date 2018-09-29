@@ -1,0 +1,36 @@
+type Todo {
+  id: ID! @unique
+  name: String!
+  status: String
+  priority: String
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  startDate: String
+  endDate: String
+  owner: User
+  project: Project
+  messages: [Message!]!
+}
+
+type Message {
+  id: ID! @unique
+  belongsTo: Todo
+  message: String!
+}
+
+type Project {
+  id: ID! @unique
+  name: String!
+  description: String
+  owner: User
+  todos: [Todo!]!
+}
+
+type User {
+  id: ID! @unique
+  name: String!
+  email: String! @unique
+  password: String!
+  projects: [Project!]!
+  todos: [Todo!]!
+}

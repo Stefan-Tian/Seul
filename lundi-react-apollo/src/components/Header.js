@@ -1,23 +1,24 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { withRouter } from "react-router";
-import { AUTH_TOKEN } from "../constants";
 import { client } from "../index";
+import { graphql, compose } from "react-apollo";
+import gql from "graphql-tag";
 
 class Header extends Component {
   render() {
-    const authToken = localStorage.getItem(AUTH_TOKEN);
+    const { currentUser } = this.props.currentUser;
     return (
       <header className="header">
         <Link className="header__name" to="/">
           <img className="header__logo" src="/lundi-logo.png" alt="logo" />
           Seul
         </Link>
-        {authToken ? (
+        {currentUser ? (
           <div
             className="header__log"
             onClick={() => {
-              localStorage.removeItem(AUTH_TOKEN);
+              this.props.logout();
               this.props.history.push("/");
               client.resetStore();
             }}
@@ -34,4 +35,21 @@ class Header extends Component {
   }
 }
 
-export default withRouter(Header);
+const CURRENT_USER = gql`
+  query CurrentUser {
+    currentUser
+  }
+`;
+
+const LOG_OUT = gql`
+  mutation Logout {
+    logout
+  }
+`;
+
+export default withRouter(
+  compose(
+    graphql(CURRENT_USER, { name: "currentUser" }),
+    graphql(LOG_OUT, { name: "logout" })
+  )(Header)
+);

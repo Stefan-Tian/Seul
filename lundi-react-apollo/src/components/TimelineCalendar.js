@@ -16,9 +16,9 @@ class TimelineCalendar extends Component {
         const start = moment(todo.startDate);
         const end = moment(todo.endDate);
         const name = todo.name;
-        taskDurations.push({ start, end, name });
+        return taskDurations.push({ start, end, name });
       } else {
-        taskDurations.push(null);
+        return taskDurations.push(null);
       }
     });
 

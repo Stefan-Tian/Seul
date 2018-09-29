@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import { graphql, compose } from "react-apollo";
 import gql from "graphql-tag";
 import { withRouter } from "react-router";
-import { AUTH_TOKEN } from "../constants";
 
 class Login extends Component {
   state = {
@@ -72,36 +71,48 @@ class Login extends Component {
   _confirm = async () => {
     const { name, email, password } = this.state;
     if (this.state.login) {
-      const result = await this.props.loginMutation({
+      await this.props.loginMutation({
         variables: {
           email,
           password
+        },
+        update: (store, { data: { login } }) => {
+          const data = store.readQuery({ query: CURRENT_USER });
+          data.currentUser = login.user.id;
+          store.writeQuery({
+            query: CURRENT_USER,
+            data
+          });
         }
       });
-      const { token } = result.data.login;
-      this._saveUserData(token);
       this.props.history.push("/projects");
     } else {
-      const result = await this.props.signupMutation({
+      await this.props.signupMutation({
         variables: {
           name,
           email,
           password
+        },
+        update: (store, { data: { login } }) => {
+          const data = store.readQuery({ query: CURRENT_USER });
+          data.currentUser = login.user.id;
+          store.writeQuery({
+            query: CURRENT_USER,
+            data
+          });
         }
       });
-      const { token } = result.data.signup;
-      this._saveUserData(token);
       this.props.history.push("/projects");
     }
   };
-
-  _saveUserData = token => localStorage.setItem(AUTH_TOKEN, token);
 }
 
 const SIGNUP_MUTATION = gql`
   mutation SignupMutation($email: String!, $password: String!, $name: String!) {
     signup(email: $email, password: $password, name: $name) {
-      token
+      user {
+        id
+      }
     }
   }
 `;
@@ -109,8 +120,16 @@ const SIGNUP_MUTATION = gql`
 const LOGIN_MUTATION = gql`
   mutation LoginMutation($email: String!, $password: String!) {
     login(email: $email, password: $password) {
-      token
+      user {
+        id
+      }
     }
+  }
+`;
+
+const CURRENT_USER = gql`
+  query CurrentUser {
+    currentUser
   }
 `;
 

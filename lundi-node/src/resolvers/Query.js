@@ -47,7 +47,11 @@ const project = (parent, { id }, context, info) =>
 const todo = (parent, { id }, context, info) =>
   context.db.query.todo({ where: { id } }, info);
 
+const currentUser = (parent, args, context, info) =>
+  typeof context.request.session.userId !== "undefined";
+
 export default {
+  currentUser,
   projects,
   project,
   todos,

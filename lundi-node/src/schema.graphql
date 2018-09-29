@@ -2,6 +2,7 @@
 
 type Query {
   info: String!
+  currentUser: Boolean!
   project(id: String!): Project!
   todo(id: String!): Todo!
   projects(
@@ -42,10 +43,10 @@ type Mutation {
   createMessage(message: String!, todoId: String!): Message
   signup(email: String!, password: String!, name: String!): AuthPayload
   login(email: String!, password: String!): AuthPayload
+  logout: String
 }
 
 type AuthPayload {
-  token: String
   user: User
 }
 
